@@ -54,6 +54,10 @@ const Route = TabNavigator({
   tabBarPosition: 'bottom',
   animationEnabled: true,
   swipeEnabled: true,
+  tabBarOptions: {
+    activeBackgroundColor: '#ffffff',
+    inactiveBackgroundColor: '#ffd746'
+  },
 })
 
 const initialRouterAction = NavigationActions.init()
@@ -64,7 +68,7 @@ export const reducer = (state = initialState, action) => {
   let nextState
   // Simply return the original `state` if `nextState` is null or undefined.
   switch (action.type) {
-    
+
     default:
       nextState = Route.router.getStateForAction(action, state)
   }
