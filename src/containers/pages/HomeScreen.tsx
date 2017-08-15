@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Text, FlatList, View, Image, StyleSheet } from 'react-native'
+import { StackNavigator } from 'react-navigation';
 import { connect, DispatchProp } from 'react-redux'
 import { getProducts } from '../../modules/product/actions'
 
@@ -23,6 +24,10 @@ const styles = StyleSheet.create({
 })
 
 class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
+    static navigationOptions = {
+        title: '精选',
+    };
+
     componentDidMount() {
         this.props.dispatch(getProducts());
     }
@@ -52,8 +57,12 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
     }
 }
 
-export default connect(
-    state => ({
-        products: state.products.available,
-    })
-)(HomeScreen)
+export default StackNavigator({
+    Home: {
+        screen: connect(
+        state => ({
+            products: state.products.available,
+        })
+    )(HomeScreen)
+    },
+});
