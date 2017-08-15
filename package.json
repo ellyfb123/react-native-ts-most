@@ -37,6 +37,7 @@
     "@types/react-redux": "^4.4.47",
     "@types/react-test-renderer": "^15.5.1",
     "@types/redux-storage": "^4.0.7",
+    "apsl-react-native-button": "^3.1.0",
     "expo": "^19.0.0",
     "most": "^1.5.1",
     "react": "16.0.0-alpha.12",

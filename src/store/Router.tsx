@@ -9,57 +9,59 @@ import HomeScreen from '../containers/pages/HomeScreen'
 import UploadScreen from '../containers/pages/UploadScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 
-const Route = TabNavigator({
-  home: {
-    screen: HomeScreen,
-    navigationOptions: {
-      tabBarLabel: 'Home',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-home' : 'ios-home-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+const Route = TabNavigator(
+  {
+    home: {
+      screen: HomeScreen,
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name={focused ? 'ios-home' : 'ios-home-outline'}
+            size={26}
+            style={{ color: tintColor }}
+          />
+        ),
+      },
     },
-  },
-  upload: {
-    screen: UploadScreen,
-    navigationOptions: {
-      tabBarLabel: 'Upload',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-add' : 'ios-add-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+    upload: {
+      screen: UploadScreen,
+      navigationOptions: {
+        tabBarLabel: 'Upload',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name={focused ? 'ios-add' : 'ios-add-outline'}
+            size={26}
+            style={{ color: tintColor }}
+          />
+        ),
+      },
     },
-  },
-  profile: {
-    screen: ProfileScreen,
-    navigationOptions: {
-      tabBarLabel: 'Profile',
-      tabBarIcon: ({ tintColor, focused }) => (
-        <Ionicons
-          name={focused ? 'ios-person' : 'ios-person-outline'}
-          size={26}
-          style={{ color: tintColor }}
-        />
-      ),
+    profile: {
+      screen: ProfileScreen,
+      navigationOptions: {
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+            name={focused ? 'ios-person' : 'ios-person-outline'}
+            size={26}
+            style={{ color: tintColor }}
+          />
+        ),
+      },
     },
-  },
-},
-{
-  initialRouteName: 'home',
-  tabBarPosition: 'bottom',
-  animationEnabled: true,
-  swipeEnabled: true,
-  tabBarOptions: {
-    activeBackgroundColor: '#ffffff',
-    inactiveBackgroundColor: '#ffd746'
-  },
-})
+  }, 
+  {
+    initialRouteName: 'profile',
+    tabBarPosition: 'bottom',
+    animationEnabled: true,
+    swipeEnabled: true,
+    tabBarOptions: {
+      activeBackgroundColor: '#ffffff',
+      inactiveBackgroundColor: '#ffd746'
+    },
+  }
+)
 
 const initialRouterAction = NavigationActions.init()
 
