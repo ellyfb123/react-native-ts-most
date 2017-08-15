@@ -35,7 +35,7 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
         const { products } = this.props;
         return (
             <View>
-                <FlatList
+                <ScrollL
                     data={products}
                     renderItem={({item}) =>
                     <View style={styles.container}>
