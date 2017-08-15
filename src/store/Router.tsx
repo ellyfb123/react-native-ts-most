@@ -49,7 +49,8 @@ const Route = TabNavigator({
       ),
     },
   },
-},                         {
+},
+{
   initialRouteName: 'home',
   tabBarPosition: 'bottom',
   animationEnabled: true,
