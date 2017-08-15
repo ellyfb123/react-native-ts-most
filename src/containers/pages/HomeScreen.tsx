@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Text, FlatList, View, Image, StyleSheet } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
+import { getProducts } from '../../modules/product/actions'
 
 const styles = StyleSheet.create({
     container: {
@@ -22,36 +23,25 @@ const styles = StyleSheet.create({
 })
 
 class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
-    constructor() {
-        super();
-        this.state = {
-            resourceData: [
-                {key: '1', image: 'Devin', name: 'test1', price: '40', username: 'testuser'},
-                {key: '2', image: 'DevJuliein', name: 'test1', price: '40', username: 'testuser'},
-                {key: '3', image: 'Jillian', name: 'test1', price: '40', username: 'testuser'},
-                {key: '4', image: 'Devin', name: 'test1', price: '40', username: 'testuser'},
-                {key: '5', image: 'DevJuliein', name: 'test1', price: '40', username: 'testuser'},
-                {key: '6', image: 'Jimmy', name: 'test1', price: '40', username: 'testuser'},
-                {key: '7', image: 'Devin', name: 'test1', price: '40', username: 'testuser'},
-                {key: '8', image: 'Jimmy', name: 'test1', price: '40', username: 'testuser'},
-            ]
-        }
+    componentDidMount() {
+        this.props.dispatch(getProducts());
     }
     render() {
+        const { products } = this.props;
         return (
             <View>
                 <FlatList
-                    data={this.state.resourceData}
+                    data={products}
                     renderItem={({item}) =>
                     <View style={styles.container}>
                         <Image style={styles.image}
-                              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+                              source={{uri: item.img}}
                          />
                         <View style={styles.content}>
                             <Text>{item.name}</Text>
                             <Text>&#165; {item.price}</Text>
                             <View>
-                                  <Text>{item.username}</Text>
+                                  <Text>{item.owner.username}</Text>
                             </View>
                             <Text>&nbsp;</Text>
                         </View>
@@ -62,4 +52,8 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
     }
 }
 
-export default connect()(HomeScreen)
+export default connect(
+    state => ({
+        products: state.products.available,
+    })
+)(HomeScreen)
