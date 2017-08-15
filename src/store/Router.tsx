@@ -6,7 +6,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from '../containers/pages/HomeScreen'
-import OthersScreen from '../containers/pages/OthersScreen'
+import UploadScreen from '../containers/pages/UploadScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 
 const Route = TabNavigator({
@@ -23,8 +23,8 @@ const Route = TabNavigator({
       ),
     },
   },
-  others: {
-    screen: OthersScreen,
+  upload: {
+    screen: UploadScreen,
     navigationOptions: {
       tabBarLabel: 'Upload',
       tabBarIcon: ({ tintColor, focused }) => (
