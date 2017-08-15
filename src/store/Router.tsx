@@ -26,10 +26,10 @@ const Route = TabNavigator({
   others: {
     screen: OthersScreen,
     navigationOptions: {
-      tabBarLabel: 'Others',
+      tabBarLabel: 'Upload',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
-          name={focused ? 'ios-settings' : 'ios-settings-outline'}
+          name={focused ? 'ios-add' : 'ios-add-outline'}
           size={26}
           style={{ color: tintColor }}
         />
@@ -42,7 +42,7 @@ const Route = TabNavigator({
       tabBarLabel: 'Profile',
       tabBarIcon: ({ tintColor, focused }) => (
         <Ionicons
-          name={focused ? 'ios-apps' : 'ios-apps-outline'}
+          name={focused ? 'ios-person' : 'ios-person-outline'}
           size={26}
           style={{ color: tintColor }}
         />
