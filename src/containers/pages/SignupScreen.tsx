@@ -104,17 +104,23 @@ class SignupScreen extends React.Component<{}, SignupState> {
                            source={require('../../assets/avator.png')}
                     />
                     <View style={styles.content}>
-                        <TextInput autoCapitalize='none'
+                        <TextInput autoFocus
+                                   autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='用户名'
+                                   clearButtonMode='while-editing'
                                    onChangeText={(text) => {this.handleUsernameChange(text)}}/>
-                        <TextInput autoCapitalize='none'
+                        <TextInput secureTextEntry
+                                   autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='密码'
+                                   clearButtonMode='while-editing'
                                    onChangeText={(text) => {this.handlePasswordChange(text)}}/>
-                        <TextInput autoCapitalize='none'
+                        <TextInput secureTextEntry
+                                   autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='确认密码'
+                                   clearButtonMode='while-editing'
                                    onChangeText={(text) => {this.handleSecondPasswordChange(text)}}/>
                         <Button
                             raised

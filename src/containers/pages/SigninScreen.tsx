@@ -98,13 +98,17 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
                            source={require('../../assets/avator.png')}
                     />
                     <View style={styles.content}>
-                        <TextInput autoCapitalize='none'
+                        <TextInput autoFocus
+                                   autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='用户名'
+                                   clearButtonMode='while-editing'
                                    onChangeText={(text) => {this.handleChange('username', text)}}/>
-                        <TextInput autoCapitalize='none'
+                        <TextInput secureTextEntry
+                                   autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='密码'
+                                   clearButtonMode='while-editing'
                                    onChangeText={(text) => {this.handleChange('password', text)}}/>
                         <Button
                             raised
