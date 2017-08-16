@@ -8,6 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import HomeScreen from '../containers/pages/HomeScreen'
 import OthersScreen from '../containers/pages/OthersScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
+import SigninScreen from '../containers/pages/SigninScreen'
 
 const Route = TabNavigator({
   home: {
@@ -49,8 +50,21 @@ const Route = TabNavigator({
       ),
     },
   },
+  signin: {
+    screen: SigninScreen,
+    navigationOptions: {
+      tabBarLabel: 'Signin',
+      tabBarIcon: ({ tintColor, focused }) => (
+          <Ionicons
+              name={focused ? 'ios-apps' : 'ios-apps-outline'}
+              size={26}
+              style={{ color: tintColor }}
+          />
+      ),
+    },
+  },
 },                         {
-  initialRouteName: 'home',
+  initialRouteName: 'signin',
   tabBarPosition: 'bottom',
   animationEnabled: true,
   swipeEnabled: true,
