@@ -3,9 +3,9 @@ import * as Redux from 'redux'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { userLogin } from '../../modules/user/actions'
-import { Text, TextInput, View, Image, StyleSheet } from 'react-native'
+import { TextInput, View, Image, StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import ProfileScreen from './ProfileScreen'
+import SignupScreen from './SignupScreen';
 
 interface LoginProps {
     dispatch?: Redux.Dispatch<object>;
@@ -90,7 +90,7 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
     }
 
     render() {
-        const { navigate } = this.props.navigation
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View style={styles.main}>
@@ -138,6 +138,6 @@ export default StackNavigator({
         )(SigninScreen)
     },
     Signup: {
-        screen: ProfileScreen
+        screen: SignupScreen,
     }
 })
