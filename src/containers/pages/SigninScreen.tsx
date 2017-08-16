@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         width: 300,
         marginTop: 50,
     }
-})
+});
 
 
 class SigninScreen extends React.Component<LoginProps, LoginState> {
@@ -70,7 +70,7 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
 
     static navigationOptions = {
         title: '请登录',
-    }
+    };
 
     handleLogin = (name, pass) => {
         const { dispatch, referer } = this.props;
@@ -83,11 +83,11 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
                 referer: referer
             })
         );
-    }
+    };
 
     handleChange = (key, value) => {
         this.setState({[key]: value});
-    }
+    };
 
     render() {
         const { navigate } = this.props.navigation;
@@ -98,11 +98,13 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
                            source={require('../../assets/avator.png')}
                     />
                     <View style={styles.content}>
-                        <TextInput autoCapitalize = 'none'
+                        <TextInput autoCapitalize='none'
                                    style={styles.input}
+                                   placeholder='用户名'
                                    onChangeText={(text) => {this.handleChange('username', text)}}/>
-                        <TextInput autoCapitalize = 'none'
+                        <TextInput autoCapitalize='none'
                                    style={styles.input}
+                                   placeholder='密码'
                                    onChangeText={(text) => {this.handleChange('password', text)}}/>
                         <Button
                             raised
