@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Image, Text, View } from 'react-native'
 
 import { connect, DispatchProp } from 'react-redux'
 import { Button } from 'react-native-elements'
-import { NavigationActions } from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
 
 import * as D from '../../definitions'
-import { userLogin } from '../../modules/user/actions'
+import BoughtScreen from './BoughtScreen'
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
@@ -18,41 +18,90 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingRight: 50,
+    paddingLeft: 50,
+  },
+  profile: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '100%',
+    paddingTop: 20,
+    paddingBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: .1,
+    shadowRadius: 5,
+  },
+  image: {
+    width: 80,
+    height: 80,
+  },
+  text: {
+    alignSelf: 'center',
+    fontSize: 18,
+    marginLeft: 40,
+  },
+  button: {
+    backgroundColor: '#FAE05E',
+    borderRadius: 10,
+    width: 300,
+    marginTop: 50,
   },
 })
 
 class ProfileScreen extends React.Component<ProfileProps<object>, object> {
+  static navigationOptions = {
+    title: '个人信息',
+  }
+
   render() {
+    const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
+        <View style={styles.profile}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/avator.png')}
+          />
+          <Text style={styles.text}>
+            {this.props.user.name}
+          </Text>
+        </View>
         <Button
-          title="Login"
-          onPress={() => this.props.dispatch(userLogin({
-              username: 'admin',
-              password: 'admin',
-            }))
-          }
+          raised
+          buttonStyle={styles.button}
+          color="#000"
+          title="已买宝贝"
+          onPress={() => navigate('Bought')}
         />
-        <Text>Profile .... {this.props.user.name ? `This is ${this.props.user.name}` : null} !</Text>
         <Button
-          title="Go to Home"
-          onPress={() => {
-            this.props.dispatch(NavigationActions.navigate({ routeName: 'home' }))
-          }}
+          raised
+          buttonStyle={styles.button}
+          color="#000"
+          title="出售宝贝"
+          onPress={() => navigate('Bought')}
         />
         <Button
-          title="Go Back"
-          onPress={() => {
-            this.props.dispatch(NavigationActions.back())
-          }}
+          raised
+          buttonStyle={styles.button}
+          color="#000"
+          title="退出登录"
+          onPress={() => navigate('Bought')}
         />
       </View>
     )
   }
 }
 
-export default connect(
-  state => ({
-    user: state.user,
-  })
-)(ProfileScreen)
+export default StackNavigator({
+  Home: {
+    screen: connect(
+      state => ({
+        user: state.user,
+      })
+    )(ProfileScreen)
+  },
+  Bought: {
+    screen: BoughtScreen
+  }
+})

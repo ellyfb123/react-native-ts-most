@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { userLogin } from '../../modules/user/actions'
 import { Text, TextInput, View, Image, StyleSheet } from 'react-native'
-import { NavigationActions } from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
+import ProfileScreen from './ProfileScreen'
 
 interface LoginProps {
     dispatch?: Redux.Dispatch<object>;
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     input: {
-        height: 40,
+        height: 30,
         width: 300,
         marginTop: 40,
         borderBottomWidth: 1,
@@ -57,13 +58,18 @@ const styles = StyleSheet.create({
     }
 })
 
-class LoginPage extends React.Component<LoginProps, LoginState> {
+
+class SigninScreen extends React.Component<LoginProps, LoginState> {
     constructor(props: LoginProps) {
         super(props);
         this.state = {
             username: '',
             password: ''
         };
+    }
+
+    static navigationOptions = {
+        title: '请登录',
     }
 
     handleLogin = (name, pass) => {
@@ -79,19 +85,14 @@ class LoginPage extends React.Component<LoginProps, LoginState> {
         );
     }
 
-    handleSignUp = () => {
-        const {dispatch} = this.props;
-        dispatch(NavigationActions.navigate({ routeName: 'home' }))
-    }
-
     handleChange = (key, value) => {
         this.setState({[key]: value});
     }
 
     render() {
+        const { navigate } = this.props.navigation
         return (
             <View style={styles.container}>
-                <Text>请登录</Text>
                 <View style={styles.main}>
                     <Image style={styles.image}
                            source={require('../../assets/avator.png')}
@@ -118,7 +119,7 @@ class LoginPage extends React.Component<LoginProps, LoginState> {
                             color="#000"
                             title="免费注册"
                             onPress={() => {
-                                this.handleSignUp()
+                                navigate('Signup')
                              }}
                         />
                     </View>
@@ -128,8 +129,15 @@ class LoginPage extends React.Component<LoginProps, LoginState> {
     }
 }
 
-export default connect(
-    state => ({
-        user: state.user,
-    })
-)(LoginPage);
+export default StackNavigator({
+    Signin: {
+        screen: connect(
+            state => ({
+                user: state.user,
+            })
+        )(SigninScreen)
+    },
+    Signup: {
+        screen: ProfileScreen
+    }
+})
