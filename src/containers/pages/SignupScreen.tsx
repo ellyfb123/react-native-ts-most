@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
 interface SignupState {
     username: string;
     password: string;
-    confirmedPassword: string;
+    secondPassword: string;
+    registerButtonActive: boolean;
 }
 
 class SignupScreen extends React.Component<{}, SignupState> {
@@ -59,12 +60,36 @@ class SignupScreen extends React.Component<{}, SignupState> {
         this.state = {
             user: '',
             password: '',
-            confirmedPassword: '',
+            secondPassword: '',
+            registerButtonActive: false,
         }
     }
 
-    handleChange = (key, value) => {
+    handleUsernameChange = (username) => {
+        this.setState({username: username});
+        if (username && this.state.password && this.state.secondPassword) {
+            this.setState({registerButtonActive: true});
+        } else {
+            this.setState({registerButtonActive: false});
+        }
+    };
 
+    handlePasswordChange = (password) => {
+        this.setState({password: password});
+        if (this.state.username && password && this.state.secondPassword) {
+            this.setState({registerButtonActive: true});
+        } else {
+            this.setState({registerButtonActive: false});
+        }
+    };
+
+    handleSecondPasswordChange = (secondPass) => {
+        this.setState({secondPassword: secondPass});
+        if (this.state.username && this.state.password && secondPass) {
+            this.setState({registerButtonActive: true});
+        } else {
+            this.setState({registerButtonActive: false});
+        }
     };
 
     handleSignup = (name, password, confirmedPassword) => {
@@ -82,23 +107,24 @@ class SignupScreen extends React.Component<{}, SignupState> {
                         <TextInput autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='用户名'
-                                   onChangeText={(text) => {this.handleChange('username', text)}}/>
+                                   onChangeText={(text) => {this.handleUsernameChange(text)}}/>
                         <TextInput autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='密码'
-                                   onChangeText={(text) => {this.handleChange('password', text)}}/>
+                                   onChangeText={(text) => {this.handlePasswordChange(text)}}/>
                         <TextInput autoCapitalize='none'
                                    style={styles.input}
                                    placeholder='确认密码'
-                                   onChangeText={(text) => {this.handleChange('confirmedPassword', text)}}/>
+                                   onChangeText={(text) => {this.handleSecondPasswordChange(text)}}/>
                         <Button
                             raised
                             buttonStyle={styles.button}
                             color="#000"
                             title="注册"
+                            disabled={!this.state.registerButtonActive}
                             onPress={
                                 () => {
-                                    this.handleSignup(this.state.username, this.state.password, this.state.confirmedPassword)
+                                    this.handleSignup(this.state.username, this.state.password, this.state.secondPassword)
                                 }
                             }
                         />
