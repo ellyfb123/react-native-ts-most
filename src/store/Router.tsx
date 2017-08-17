@@ -9,6 +9,7 @@ import HomeScreen from '../containers/pages/HomeScreen'
 import UploadScreen from '../containers/pages/UploadScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import SigninScreen from '../containers/pages/SigninScreen'
+import userStorage from '../utils/storage'
 
 const Route = TabNavigator(
   {
@@ -39,7 +40,7 @@ const Route = TabNavigator(
       },
     },
     profile: {
-      screen: ProfileScreen,
+      screen: userStorage.getToken() ? ProfileScreen : SigninScreen,
       navigationOptions: {
         tabBarLabel: 'Profile',
         tabBarIcon: ({ tintColor, focused }) => (
@@ -49,19 +50,6 @@ const Route = TabNavigator(
             style={{ color: tintColor }}
           />
         ),
-      },
-    },
-    signin: {
-      screen: SigninScreen,
-      navigationOptions: {
-          tabBarLabel: 'Signin',
-          tabBarIcon: ({ tintColor, focused }) => (
-              <Ionicons
-                  name={focused ? 'ios-apps' : 'ios-apps-outline'}
-                  size={26}
-                  style={{ color: tintColor }}
-              />
-          ),
       },
     },
   },
@@ -75,7 +63,8 @@ const Route = TabNavigator(
       inactiveBackgroundColor: '#ffd746'
     },
   }
-)
+);
+
 const initialRouterAction = NavigationActions.init()
 
 const initialState = Route.router.getStateForAction(initialRouterAction, null)

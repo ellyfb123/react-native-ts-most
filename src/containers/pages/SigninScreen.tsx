@@ -3,9 +3,9 @@ import * as Redux from 'redux'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { userLogin } from '../../modules/user/actions'
-import { Text, TextInput, View, Image, StyleSheet } from 'react-native'
+import { TextInput, View, Image, StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import ProfileScreen from './ProfileScreen'
+import SignupScreen from './SignupScreen';
 
 interface LoginProps {
     dispatch?: Redux.Dispatch<object>;
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         width: 300,
         marginTop: 50,
     }
-})
+});
 
 
 class SigninScreen extends React.Component<LoginProps, LoginState> {
@@ -70,7 +70,7 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
 
     static navigationOptions = {
         title: '请登录',
-    }
+    };
 
     handleLogin = (name, pass) => {
         const { dispatch, referer } = this.props;
@@ -83,14 +83,14 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
                 referer: referer
             })
         );
-    }
+    };
 
     handleChange = (key, value) => {
         this.setState({[key]: value});
-    }
+    };
 
     render() {
-        const { navigate } = this.props.navigation
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.container}>
                 <View style={styles.main}>
@@ -98,11 +98,17 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
                            source={require('../../assets/avator.png')}
                     />
                     <View style={styles.content}>
-                        <TextInput autoCapitalize = 'none'
+                        <TextInput autoFocus
+                                   autoCapitalize='none'
                                    style={styles.input}
+                                   placeholder='用户名'
+                                   clearButtonMode='while-editing'
                                    onChangeText={(text) => {this.handleChange('username', text)}}/>
-                        <TextInput autoCapitalize = 'none'
+                        <TextInput secureTextEntry
+                                   autoCapitalize='none'
                                    style={styles.input}
+                                   placeholder='密码'
+                                   clearButtonMode='while-editing'
                                    onChangeText={(text) => {this.handleChange('password', text)}}/>
                         <Button
                             raised
@@ -138,6 +144,6 @@ export default StackNavigator({
         )(SigninScreen)
     },
     Signup: {
-        screen: ProfileScreen
+        screen: SignupScreen,
     }
 })
