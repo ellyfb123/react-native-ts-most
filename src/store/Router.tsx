@@ -40,7 +40,7 @@ const Route = TabNavigator(
       },
     },
     profile: {
-      screen: userStorage.getToken() ? ProfileScreen : SigninScreen,
+      screen: ProfileScreen,
       navigationOptions: {
         tabBarLabel: 'Profile',
         tabBarIcon: ({ tintColor, focused }) => (
@@ -50,6 +50,19 @@ const Route = TabNavigator(
             style={{ color: tintColor }}
           />
         ),
+      },
+    },
+    signin: {
+      screen: SigninScreen,
+      navigationOptions: {
+          tabBarLabel: 'Signin',
+          tabBarIcon: ({ tintColor, focused }) => (
+              <Ionicons
+                  name={focused ? 'ios-person' : 'ios-person-outline'}
+                  size={26}
+                  style={{ color: tintColor }}
+              />
+          ),
       },
     },
   },

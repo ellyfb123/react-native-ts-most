@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Text, FlatList, View, Image, StyleSheet } from 'react-native'
-import { StackNavigator } from 'react-navigation';
 import { connect, DispatchProp } from 'react-redux'
 import { getOwnedProducts } from '../../modules/product/actions'
 
@@ -20,12 +19,19 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'space-around',
+    },
+    mask: {
+        position: 'absolute',
+        width: 400,
+        height: 140,
+        backgroundColor: '#FCFAFA',
+        opacity: 0.8,
     }
 })
 
 class OwnedScreen extends React.Component<DispatchProp<{}>, {}> {
     static navigationOptions = {
-        title: '出售宝贝1',
+        title: '出售宝贝',
     };
 
     componentDidMount() {
@@ -46,10 +52,11 @@ class OwnedScreen extends React.Component<DispatchProp<{}>, {}> {
                             <Text>{item.name}</Text>
                             <Text>&#165; {item.price}</Text>
                             <View>
-                                  <Text>{item.owner.username}</Text>
+                                  <Text>{item.buyer.username}</Text>
                             </View>
-                            <Text>&nbsp;</Text>
+                            <Text>{ item.buyer? '交易关闭' : '出售中'}</Text>
                         </View>
+                        { item.buyer? <Text style={styles.mask}>&nbsp;</Text> : ''}
                     </View>}
                 />
             </View>
