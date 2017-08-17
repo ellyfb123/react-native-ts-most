@@ -27,8 +27,8 @@ export const userLogin = (user: D.UserForLogin, meta: D.MetaForLogin): D.UserAct
 
 export const userLogout = (): D.UserAction => ({ type: USER_LOGOUT });
 
-const registerEpic: Epic<D.GeneralAction> = epicCreator(USER_REGISTER, register, (store) => {
-    console.log('register');
+const registerEpic: Epic<D.GeneralAction> = epicCreator(USER_REGISTER, register, () => {
+    alert('注册成功，请回到登录界面登录！');
 });
 
 const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, response, action) => {

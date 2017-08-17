@@ -1,6 +1,8 @@
 import * as React from 'react'
-import {View, StyleSheet, Image, Text, TextInput, TextInput} from "react-native";
+import * as Redux from 'redux'
+import {View, StyleSheet, Image, TextInput, TextInput} from "react-native";
 import { Button } from 'react-native-elements';
+import {userRegister} from "../../modules/user/actions";
 
 const styles = StyleSheet.create({
     container: {
@@ -43,20 +45,24 @@ const styles = StyleSheet.create({
     },
 });
 
-interface SignupState {
+interface Props {
+    dispatch?: Redux.Dispatch<object>;
+}
+
+interface State {
     username: string;
     password: string;
     secondPassword: string;
     registerButtonActive: boolean;
 }
 
-class SignupScreen extends React.Component<{}, SignupState> {
+class SignupScreen extends React.Component<Props, State> {
     static navigationOptions = {
         title: '注册',
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             user: '',
             password: '',
@@ -92,8 +98,18 @@ class SignupScreen extends React.Component<{}, SignupState> {
         }
     };
 
-    handleSignup = (name, password, confirmedPassword) => {
-
+    handleSignup = (name, password, secondPass) => {
+        if (password === secondPass) {
+            const { dispatch } = this.props;
+            dispatch(userRegister(
+                {
+                    username: name,
+                    password: password
+                })
+            );
+        } else {
+            alert("两次输入密码不相同，请重新输入！");
+        }
     };
 
     render() {

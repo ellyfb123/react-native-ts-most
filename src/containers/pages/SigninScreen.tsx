@@ -144,6 +144,10 @@ export default StackNavigator({
         )(SigninScreen)
     },
     Signup: {
-        screen: SignupScreen,
+        screen: connect(
+            state => ({
+                user: state.user,
+            })
+        )(SignupScreen),
     }
 })
