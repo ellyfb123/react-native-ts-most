@@ -1,10 +1,10 @@
-import userStorage from '../utils/storage';
+import userStorage from '../utils/storage'
 
 const baseUrl = 'http://secondhand.leanapp.cn';
 
-export const fetchApi = (serviceUrl, options?, omitContentType?) => {
+export const fetchApi = async (serviceUrl, options?, omitContentType?) => {
     const url = `${baseUrl}${serviceUrl}`;
-    const token = userStorage.getToken();
+    const token = await userStorage.getToken();
 
     let headers;
     if (omitContentType) {
@@ -12,14 +12,14 @@ export const fetchApi = (serviceUrl, options?, omitContentType?) => {
             method: 'GET',
             Accept: 'application/json',
             ...(token ? { 'sessionToken': token } : {}),
-        });
+        })
     } else {
         headers = new Headers({
             method: 'GET',
             Accept: 'application/json',
             'Content-Type': 'application/json',
             ...(token ? { 'sessionToken': token } : {}),
-        });
+        })
     }
 
     const finalConfig = {
@@ -31,16 +31,16 @@ export const fetchApi = (serviceUrl, options?, omitContentType?) => {
 
     return fetch(url, finalConfig)
         .then(response => {
-            status = response.status;
-            return response.json();
+            status = response.status
+            return response.json()
         }).then(
             json => {
                 if (status < 400) {
-                    return json;
+                    return json
                 }
-                throw json;
+                throw json
             },
             ({message}) => {
-                throw {message};
-            });
+                throw {message}
+            })
 };

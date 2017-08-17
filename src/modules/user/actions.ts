@@ -1,5 +1,7 @@
 import { Epic } from 'redux-most';
 import epicCreator from '../../utils/epicsCreator';
+// import { StackNavigator } from 'react-navigation';
+// import ProfileScreen from '../../containers/pages/ProfileScreen'
 
 import * as D from '../../definitions';
 
@@ -30,8 +32,11 @@ const registerEpic: Epic<D.GeneralAction> = epicCreator(USER_REGISTER, register,
 });
 
 const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, response, action) => {
+    console.log('username '+response.username);
+    console.log('sessionToken '+response.sessionToken);
     userStorage.setUser(response).then(() => {
-        console.log('login');
+        console.log('login successfully');
+        // navigation.navigate('Profile');
     });
 });
 
@@ -48,3 +53,9 @@ export const epics: Array<Epic<D.GeneralAction>> = [
     loginEpic,
     logoutEpic,
 ];
+
+// export default StackNavigator({
+//     Profile: {
+//         screen: ProfileScreen
+//     }
+// })

@@ -4,9 +4,12 @@ import { StyleSheet, Image, Text, View } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
+import { userLogout } from '../../modules/user/actions'
 
 import * as D from '../../definitions'
 import BoughtScreen from './BoughtScreen'
+import OwnedScreen from './OwnedScreen'
+
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
@@ -79,14 +82,14 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
           buttonStyle={styles.button}
           color="#000"
           title="出售宝贝"
-          onPress={() => navigate('Bought')}
+          onPress={() => navigate('Owned')}
         />
         <Button
           raised
           buttonStyle={styles.button}
           color="#000"
           title="退出登录"
-          onPress={() => navigate('Bought')}
+          onPress={() => this.props.dispatch(userLogout())}
         />
       </View>
     )
@@ -103,5 +106,8 @@ export default StackNavigator({
   },
   Bought: {
     screen: BoughtScreen
+  },
+  Owned: {
+    screen: OwnedScreen
   }
 })
