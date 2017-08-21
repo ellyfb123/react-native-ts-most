@@ -9,7 +9,6 @@ import HomeScreen from '../containers/pages/HomeScreen'
 import UploadScreen from '../containers/pages/UploadScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
 import SigninScreen from '../containers/pages/SigninScreen'
-import userStorage from '../utils/storage'
 
 const Route = TabNavigator(
   {
@@ -71,6 +70,7 @@ const Route = TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: true,
     swipeEnabled: true,
+    lazy: true,
     tabBarOptions: {
       activeBackgroundColor: '#ffffff',
       inactiveBackgroundColor: '#ffd746'

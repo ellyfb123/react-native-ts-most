@@ -9,7 +9,7 @@ import { userLogout } from '../../modules/user/actions'
 import * as D from '../../definitions'
 import BoughtScreen from './BoughtScreen'
 import OwnedScreen from './OwnedScreen'
-
+import SigninModal from '../modal/Signin';
 
 export type ProfileProps<S> = DispatchProp<S> & {
   user: D.User
@@ -55,13 +55,14 @@ const styles = StyleSheet.create({
 class ProfileScreen extends React.Component<ProfileProps<object>, object> {
   static navigationOptions = {
     title: '个人信息',
-  }
+  };
 
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <View style={styles.profile}>
+          {this.props.user.name? undefined : <SigninModal /> }
           <Image
             style={styles.image}
             source={require('../../assets/avator.png')}

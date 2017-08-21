@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { Button } from 'react-native-elements';
 import {StackNavigator} from 'react-navigation'
 import {createProduct} from "../../modules/product/actions";
+import SigninModal from '../modal/Signin';
 import { ImagePicker } from 'expo';
 
 const styles = StyleSheet.create({
@@ -120,6 +121,7 @@ class UploadScreen extends React.Component<Props, State> {
     return (
       <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.main}>
+              {this.props.user.name? undefined : <SigninModal /> }
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Button
                       style={styles.uploadImgBtn}
@@ -166,6 +168,10 @@ class UploadScreen extends React.Component<Props, State> {
 
 export default StackNavigator({
     Home: {
-        screen: connect()(UploadScreen)
+        screen: connect(
+            state => ({
+            user: state.user,
+        })
+        )(UploadScreen)
     },
 });
