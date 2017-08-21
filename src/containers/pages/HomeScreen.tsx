@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { Text, FlatList, View, Image, StyleSheet } from 'react-native'
+import { Text, FlatList, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { StackNavigator } from 'react-navigation';
 import { connect, DispatchProp } from 'react-redux'
 import { getProducts } from '../../modules/product/actions'
+import BuyScreen from './BuyScreen'
 
 const styles = StyleSheet.create({
     container: {
@@ -33,12 +34,13 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
     }
     render() {
         const { products } = this.props;
+        const { navigate } = this.props.navigation;
         return (
             <View>
                 <FlatList
                     data={products}
                     renderItem={({item}) =>
-                    <View style={styles.container}>
+                    <TouchableOpacity style={styles.container} onPress={() => { navigate('Buy', {item: item}) }}>
                         <Image style={styles.image}
                               source={{uri: item.img}}
                          />
@@ -50,7 +52,7 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
                             </View>
                             <Text>&nbsp;</Text>
                         </View>
-                    </View>}
+                    </TouchableOpacity>}
                 />
             </View>
         );
@@ -65,4 +67,7 @@ export default StackNavigator({
         })
     )(HomeScreen)
     },
+    Buy: {
+        screen: BuyScreen
+    }
 });
