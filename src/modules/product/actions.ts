@@ -35,6 +35,7 @@ export const clearProducts = (): D.UserAction => ({ type: CLEAR_PRODUCTS });
 
 const sucCallback = (store) => {
     store.dispatch(getProducts());
+    alert("宝贝发布成功！");
 };
 
 const queryAvailableEpic: Epic<D.GeneralAction> = epicCreator(GET_PRODUCTS, queryAvailable);
