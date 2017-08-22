@@ -52,11 +52,11 @@ class OwnedScreen extends React.Component<DispatchProp<{}>, {}> {
                             <Text>{item.name}</Text>
                             <Text>&#165; {item.price}</Text>
                             <View>
-                                  <Text>{item.buyer.username}</Text>
+                                  <Text>{item.buyer ? item.buyer.username : ''}</Text>
                             </View>
                             <Text>{ item.buyer? '交易关闭' : '出售中'}</Text>
                         </View>
-                        { item.buyer? <Text style={styles.mask}>&nbsp;</Text> : ''}
+                        { item.buyer? <Text style={styles.mask}>&nbsp;</Text> : undefined}
                     </View>}
                 />
             </View>
