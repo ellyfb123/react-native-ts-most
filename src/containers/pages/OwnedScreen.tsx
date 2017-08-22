@@ -33,7 +33,7 @@ class OwnedScreen extends React.Component<DispatchProp<{}>, {}> {
     static navigationOptions = ({ navigation, screenProps }) => ({
         title: '出售宝贝',
         headerLeft: <TouchableOpacity onPress={() => { navigation.goBack(); }}><Image
-            style={{width: 20, height: 20, marginBottom: 5}}
+            style={{width: 20, height: 20, marginBottom: 5, marginLeft: 10}}
             source={require('../../assets/arrow.png')}
         /></TouchableOpacity>
     });
@@ -41,12 +41,16 @@ class OwnedScreen extends React.Component<DispatchProp<{}>, {}> {
     componentDidMount() {
         this.props.dispatch(getOwnedProducts());
     }
+
+    keyExtractor = (item, index) => index;
+
     render() {
         const { products } = this.props;
         return (
             <View>
                 <FlatList
                     data={products}
+                    keyExtractor={this.keyExtractor}
                     renderItem={({item}) =>
                     <View style={styles.container}>
                         <Image style={styles.image}
@@ -56,11 +60,11 @@ class OwnedScreen extends React.Component<DispatchProp<{}>, {}> {
                             <Text>{item.name}</Text>
                             <Text>&#165; {item.price}</Text>
                             <View>
-                                  <Text>{item.buyer.username}</Text>
+                                  <Text>{item.buyer ? item.buyer.username : ''}</Text>
                             </View>
                             <Text>{ item.buyer? '交易关闭' : '出售中'}</Text>
                         </View>
-                        { item.buyer? <Text style={styles.mask}>&nbsp;</Text> : ''}
+                        { item.buyer? <Text style={styles.mask}>&nbsp;</Text> : undefined}
                     </View>}
                 />
             </View>

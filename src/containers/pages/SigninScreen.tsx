@@ -3,9 +3,7 @@ import * as Redux from 'redux'
 import { connect } from 'react-redux'
 import { Button } from 'react-native-elements'
 import { userLogin } from '../../modules/user/actions'
-import { TextInput, View, Image, StyleSheet } from 'react-native'
-import { StackNavigator } from 'react-navigation'
-import SignupScreen from './SignupScreen';
+import { TextInput, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 interface LoginProps {
     dispatch?: Redux.Dispatch<object>;
@@ -67,10 +65,14 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
             password: ''
         };
     }
-
-    static navigationOptions = {
+    static navigationOptions = ({ navigation, screenProps }) => ({
         title: '请登录',
-    };
+        headerLeft: <TouchableOpacity onPress={() => { navigation.goBack(); }}><Image
+            style={{width: 20, height: 20, marginBottom: 5, marginLeft: 10}}
+            source={require('../../assets/close.png')}
+        /></TouchableOpacity>
+    });
+
 
     handleLogin = (name, pass) => {
         const { dispatch, referer } = this.props;

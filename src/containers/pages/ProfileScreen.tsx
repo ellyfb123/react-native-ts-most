@@ -59,7 +59,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
   }
   static navigationOptions = {
     title: '个人信息',
-  }
+  };
 
   render() {
     const { navigate } = this.props.navigation

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as Redux from 'redux'
-import {View, StyleSheet, Image, TextInput, TextInput} from "react-native";
+import {View, StyleSheet, Image, TextInput, TextInput, TouchableOpacity } from "react-native";
 import { Button } from 'react-native-elements';
 import {userRegister} from "../../modules/user/actions";
 
@@ -57,9 +57,13 @@ interface State {
 }
 
 class SignupScreen extends React.Component<Props, State> {
-    static navigationOptions = {
+    static navigationOptions = ({ navigation, screenProps }) => ({
         title: '注册',
-    };
+        headerLeft: <TouchableOpacity onPress={() => { navigation.goBack(); }}><Image
+            style={{width: 20, height: 20, marginBottom: 5, marginLeft: 10}}
+            source={require('../../assets/close.png')}
+        /></TouchableOpacity>
+    });
 
     constructor(props) {
         super(props);

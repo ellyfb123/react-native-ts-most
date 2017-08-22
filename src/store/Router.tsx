@@ -58,7 +58,7 @@ const Route = TabNavigator(
     initialRouteName: 'home',
     headerMode: 'none',
     tabBarPosition: 'bottom',
-    animationEnabled: true,
+    animationEnabled: false,
     swipeEnabled: true,
     lazy: true,
     tabBarOptions: {

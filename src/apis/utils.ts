@@ -2,7 +2,7 @@ import userStorage from '../utils/storage'
 
 const baseUrl = 'http://secondhand.leanapp.cn';
 
-export const fetchApi = async (serviceUrl, options?, omitContentType?) => {
+export const fetchApi = async(serviceUrl, options?, omitContentType?) => {
     const url = `${baseUrl}${serviceUrl}`;
     const token = await userStorage.getToken();
 
@@ -11,14 +11,14 @@ export const fetchApi = async (serviceUrl, options?, omitContentType?) => {
         headers = new Headers({
             method: 'GET',
             Accept: 'application/json',
-            ...(token ? { 'sessionToken': token } : {}),
+            ...(token ? {'sessionToken': token} : {}),
         })
     } else {
         headers = new Headers({
             method: 'GET',
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            ...(token ? { 'sessionToken': token } : {}),
+            ...(token ? {'sessionToken': token} : {}),
         })
     }
 
@@ -38,9 +38,11 @@ export const fetchApi = async (serviceUrl, options?, omitContentType?) => {
                 if (status < 400) {
                     return json
                 }
+                console.log(json)
                 throw json
             },
             ({message}) => {
+                console.log("11111111"+JSON.stringify(message))
                 throw {message}
             })
 };

@@ -33,7 +33,7 @@ class BoughtScreen extends React.Component<DispatchProp<{}>, {}> {
     static navigationOptions = ({ navigation, screenProps }) => ({
         title: "已买宝贝",
         headerLeft: <TouchableOpacity onPress={() => { navigation.goBack(); }}><Image
-            style={{width: 20, height: 20, marginBottom: 5}}
+            style={{width: 20, height: 20, marginBottom: 5, marginLeft: 10}}
             source={require('../../assets/arrow.png')}
         /></TouchableOpacity>
     });
@@ -41,12 +41,16 @@ class BoughtScreen extends React.Component<DispatchProp<{}>, {}> {
     componentDidMount() {
         this.props.dispatch(getBoughtProducts());
     }
+
+    keyExtractor = (item, index) => index;
+
     render() {
         const { products } = this.props;
         return (
             <View>
                 <FlatList
                     data={products}
+                    keyExtractor={this.keyExtractor}
                     renderItem={({item}) =>
                     <View style={styles.container}>
                         <Image style={styles.image}

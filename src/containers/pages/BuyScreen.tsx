@@ -49,7 +49,7 @@ class BuyScreen extends React.Component<DispatchProp<{}>, {}> {
     static navigationOptions = ({ navigation, screenProps }) => ({
         title: '商品详情',
         headerLeft: <TouchableOpacity onPress={() => { navigation.goBack(); }}><Image
-            style={{width: 20, height: 20, marginBottom: 5}}
+            style={{width: 20, height: 20, marginBottom: 5, marginLeft: 10}}
             source={require('../../assets/arrow.png')}
         /></TouchableOpacity>
     });
