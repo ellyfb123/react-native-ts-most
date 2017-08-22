@@ -9,6 +9,7 @@ import { userLogout } from '../../modules/user/actions'
 import * as D from '../../definitions'
 import BoughtScreen from './BoughtScreen'
 import OwnedScreen from './OwnedScreen'
+import {showModal} from "../../modules/modal/actions";
 
 
 export type ProfileProps<S> = DispatchProp<S> & {
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
 })
 
 class ProfileScreen extends React.Component<ProfileProps<object>, object> {
+  constructor(props) {
+    super(props);
+  }
   static navigationOptions = {
     title: '个人信息',
   }
@@ -62,6 +66,7 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
     return (
       <View style={styles.container}>
         <View style={styles.profile}>
+          {this.props.user.name? undefined : this.props.dispatch(showModal('signin')) }
           <Image
             style={styles.image}
             source={require('../../assets/avator.png')}
@@ -110,4 +115,6 @@ export default StackNavigator({
   Owned: {
     screen: OwnedScreen
   }
+}, {
+  headerMode: 'none'
 })

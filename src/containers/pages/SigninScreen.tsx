@@ -135,19 +135,8 @@ class SigninScreen extends React.Component<LoginProps, LoginState> {
     }
 }
 
-export default StackNavigator({
-    Signin: {
-        screen: connect(
-            state => ({
-                user: state.user,
-            })
-        )(SigninScreen)
-    },
-    Signup: {
-        screen: connect(
-            state => ({
-                user: state.user,
-            })
-        )(SignupScreen),
-    }
-})
+export default connect(
+    state => ({
+        user: state.user,
+    })
+)(SigninScreen)

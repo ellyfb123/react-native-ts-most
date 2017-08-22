@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { Text, FlatList, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import { StackNavigator } from 'react-navigation';
 import { connect, DispatchProp } from 'react-redux'
 import { getProducts } from '../../modules/product/actions'
+import { StackNavigator } from 'react-navigation'
 import BuyScreen from './BuyScreen'
 
 const styles = StyleSheet.create({
@@ -33,14 +33,14 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
         this.props.dispatch(getProducts());
     }
     render() {
-        const { products } = this.props;
+        const { products, dispatch } = this.props;
         const { navigate } = this.props.navigation;
         return (
             <View>
                 <FlatList
                     data={products}
                     renderItem={({item}) =>
-                    <TouchableOpacity style={styles.container} onPress={() => { navigate('Buy', {item: item}) }}>
+                    <TouchableOpacity style={styles.container} onPress={() => navigate('Buy', {item: item})}>
                         <Image style={styles.image}
                               source={{uri: item.img}}
                          />
@@ -62,12 +62,14 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
 export default StackNavigator({
     Home: {
         screen: connect(
-        state => ({
-            products: state.products.available,
-        })
-    )(HomeScreen)
+            state => ({
+                products: state.products.available,
+            })
+        )(HomeScreen)
     },
     Buy: {
         screen: BuyScreen
-    }
-});
+    },
+}, {
+    headerMode: 'none'
+})

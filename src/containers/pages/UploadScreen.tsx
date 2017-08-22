@@ -25,8 +25,4 @@ class UploadScreen extends React.Component<DispatchProp<{}>, {}> {
   }
 }
 
-export default StackNavigator({
-    Home: {
-        screen: connect()(UploadScreen)
-    },
-});
+export default connect()(UploadScreen)

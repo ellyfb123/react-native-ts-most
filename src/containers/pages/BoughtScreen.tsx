@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, FlatList, View, Image, StyleSheet } from 'react-native'
+import { Text, FlatList, View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect, DispatchProp } from 'react-redux'
 import { getBoughtProducts } from '../../modules/product/actions'
 
@@ -30,9 +30,13 @@ const styles = StyleSheet.create({
 })
 
 class BoughtScreen extends React.Component<DispatchProp<{}>, {}> {
-    static navigationOptions = {
-        title: '已买宝贝',
-    };
+    static navigationOptions = ({ navigation, screenProps }) => ({
+        title: "已买宝贝",
+        headerLeft: <TouchableOpacity onPress={() => { navigation.goBack(); }}><Image
+            style={{width: 20, height: 20, marginBottom: 5}}
+            source={require('../../assets/arrow.png')}
+        /></TouchableOpacity>
+    });
 
     componentDidMount() {
         this.props.dispatch(getBoughtProducts());

@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import { Button } from 'react-native-elements'
 import { connect, DispatchProp } from 'react-redux'
-import {StackNavigator} from 'react-navigation'
 import { buyProduct } from '../../modules/product/actions'
-import SigninScreen from './SigninScreen'
+import { NavigationActions } from 'react-navigation'
 
 const styles = StyleSheet.create({
     container: {
@@ -47,19 +46,23 @@ const styles = StyleSheet.create({
 })
 
 class BuyScreen extends React.Component<DispatchProp<{}>, {}> {
-    static navigationOptions = {
+    static navigationOptions = ({ navigation, screenProps }) => ({
         title: '商品详情',
-    };
+        headerLeft: <TouchableOpacity onPress={() => { navigation.goBack(); }}><Image
+            style={{width: 20, height: 20, marginBottom: 5}}
+            source={require('../../assets/arrow.png')}
+        /></TouchableOpacity>
+    });
     constructor(props) {
         super(props);
     }
 
     handleClick = (productId) => {
-        const { user, dispatch, navigate } = this.props;
+        const { user, dispatch } = this.props;
         if (user.name) {
             dispatch(buyProduct(productId));
         } else {
-            navigate('Signin');
+            dispatch(NavigationActions.navigate({routeName: 'signin'}));
         }
     }
 
@@ -68,7 +71,6 @@ class BuyScreen extends React.Component<DispatchProp<{}>, {}> {
         var item = state.params ? state.params.item : "undefined";
         return (
             <View style={styles.container}>
-                <Text>商品详情</Text>
                 <Image style={styles.image} source={{uri:item.img}}/>
                 <View style={styles.content}>
                     <Text style={styles.name}> {item.name} </Text>

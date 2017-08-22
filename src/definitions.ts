@@ -56,9 +56,8 @@ export interface ProductForCreate {
 }
 
 export interface Modal {
-    id?: string;
-    anchor: string;
-    passProps?: object;
+    modalType: null;
+    modalProps?: object;
 }
 
 // ACTION CREATORS
@@ -80,10 +79,6 @@ export interface QuerySucAction extends GeneralAction {
     payload?: Array<Product>;
 }
 
-export interface ModalAction extends GeneralAction {
-    payload?: Modal;
-}
-
 // STATES
 export type AppState = App;
 export type UserState = User;
@@ -93,12 +88,10 @@ export type ProductsState = {
     bought: Array<Product>;
     imageUrl: Array<Product>;
 }
-export type ModalState = Array<Modal>;
 
 export interface RootState<S> {
     user?: UserState;
     app?: AppState;
     products?: ProductsState;
-    modal?: ModalState;
     loader?: boolean;
 }

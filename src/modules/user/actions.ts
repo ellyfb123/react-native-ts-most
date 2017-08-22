@@ -10,6 +10,7 @@ import { login, logout,  register } from '../../apis/user';
 import userStorage from '../../utils/storage';
 
 import { clearProducts } from '../product/actions';
+import {NavigationActions} from "react-navigation";
 
 export const USER_REGISTER = 'USER_REGISTER';
 
@@ -31,12 +32,9 @@ const registerEpic: Epic<D.GeneralAction> = epicCreator(USER_REGISTER, register,
     alert('注册成功，请回到登录界面登录！');
 });
 
-const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, response, action) => {
-    console.log('username '+response.username);
-    console.log('sessionToken '+response.sessionToken);
+const loginEpic: Epic<D.GeneralAction> = epicCreator(USER_LOGIN, login, (store, response) => {
     userStorage.setUser(response).then(() => {
-        console.log('login successfully');
-        // navigation.navigate('Profile');
+        store.dispatch(NavigationActions.back())
     });
 });
 
@@ -53,9 +51,3 @@ export const epics: Array<Epic<D.GeneralAction>> = [
     loginEpic,
     logoutEpic,
 ];
-
-// export default StackNavigator({
-//     Profile: {
-//         screen: ProfileScreen
-//     }
-// })

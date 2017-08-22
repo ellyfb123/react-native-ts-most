@@ -1,15 +1,16 @@
 import * as React from 'react'
 import {
-  NavigationActions,
-  TabNavigator,
+    NavigationActions,
+    TabNavigator, StackNavigator,
 } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import HomeScreen from '../containers/pages/HomeScreen'
 import UploadScreen from '../containers/pages/UploadScreen'
 import ProfileScreen from '../containers/pages/ProfileScreen'
+import SignupScreen from '../containers/pages/SignupScreen'
+import BuyScreen from '../containers/pages/BuyScreen'
 import SigninScreen from '../containers/pages/SigninScreen'
-import userStorage from '../utils/storage'
 
 const Route = TabNavigator(
   {
@@ -52,25 +53,14 @@ const Route = TabNavigator(
         ),
       },
     },
-    signin: {
-      screen: SigninScreen,
-      navigationOptions: {
-          tabBarLabel: 'Signin',
-          tabBarIcon: ({ tintColor, focused }) => (
-              <Ionicons
-                  name={focused ? 'ios-person' : 'ios-person-outline'}
-                  size={26}
-                  style={{ color: tintColor }}
-              />
-          ),
-      },
-    },
   },
   {
     initialRouteName: 'home',
+    headerMode: 'none',
     tabBarPosition: 'bottom',
     animationEnabled: true,
     swipeEnabled: true,
+    lazy: true,
     tabBarOptions: {
       activeBackgroundColor: '#ffffff',
       inactiveBackgroundColor: '#ffd746'
@@ -78,9 +68,35 @@ const Route = TabNavigator(
   }
 );
 
+const RootRouter = StackNavigator({
+    tabs: {
+      screen: Route
+    },
+    signin: {
+        screen: SigninScreen,
+        navigationOptions: {
+            mode: 'modal',
+        },
+    },
+    signup: {
+        screen: SignupScreen,
+        navigationOptions: {
+            mode: 'modal',
+        },
+    },
+    upload: {
+        screen: UploadScreen,
+        navigationOptions: {
+            mode: 'modal',
+        },
+    },
+}, {
+    initialRouteName: 'tabs',
+})
+
 const initialRouterAction = NavigationActions.init()
 
-const initialState = Route.router.getStateForAction(initialRouterAction, null)
+const initialState = RootRouter.router.getStateForAction(initialRouterAction, null)
 
 export const reducer = (state = initialState, action) => {
   let nextState
@@ -88,9 +104,9 @@ export const reducer = (state = initialState, action) => {
   switch (action.type) {
 
     default:
-      nextState = Route.router.getStateForAction(action, state)
+      nextState = RootRouter.router.getStateForAction(action, state)
   }
   return nextState || state
 }
 
-export default Route
+export default RootRouter
