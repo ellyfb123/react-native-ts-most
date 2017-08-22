@@ -32,6 +32,9 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
     componentDidMount() {
         this.props.dispatch(getProducts());
     }
+
+    keyExtractor = (item, index) => index;
+
     render() {
         const { products } = this.props;
         const { navigate } = this.props.navigation;
@@ -39,6 +42,7 @@ class HomeScreen extends React.Component<DispatchProp<{}>, {}> {
             <View>
                 <FlatList
                     data={products}
+                    keyExtractor={this.keyExtractor}
                     renderItem={({item}) =>
                     <TouchableOpacity style={styles.container} onPress={() => { navigate('Buy', {item: item}) }}>
                         <Image style={styles.image}

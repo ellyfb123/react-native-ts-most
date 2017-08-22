@@ -37,12 +37,16 @@ class OwnedScreen extends React.Component<DispatchProp<{}>, {}> {
     componentDidMount() {
         this.props.dispatch(getOwnedProducts());
     }
+
+    keyExtractor = (item, index) => index;
+
     render() {
         const { products } = this.props;
         return (
             <View>
                 <FlatList
                     data={products}
+                    keyExtractor={this.keyExtractor}
                     renderItem={({item}) =>
                     <View style={styles.container}>
                         <Image style={styles.image}
