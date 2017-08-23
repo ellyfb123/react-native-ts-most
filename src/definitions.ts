@@ -55,6 +55,12 @@ export interface ProductForCreate {
     description: string;
 }
 
+export interface ImageFile {
+    uri: string;
+    type: string;
+    name: string;
+}
+
 export interface Modal {
     modalType: null;
     modalProps?: object;

@@ -58,7 +58,6 @@ interface Props {
 }
 interface State {
     name: string;
-    img: string;
     price: string;
     description: string;
 }
@@ -94,7 +93,7 @@ class UploadScreen extends React.Component<Props, State> {
       this.setState({description})
   };
 
-  handleUpload = (name, price, img, description) => {
+  handleUpload = (name, price, imageUrl, description) => {
       const { dispatch } = this.props;
       dispatch(createProduct(
           {
@@ -117,7 +116,10 @@ class UploadScreen extends React.Component<Props, State> {
 
         if (!result.cancelled) {
             const { dispatch } = this.props;
-            dispatch(uploadProductImage(result.uri));
+            console.log('111' + result.uri);
+            dispatch(uploadProductImage(
+                {uri: result.uri, type: 'multipart/form-data', name: result.uri}
+            ));
         }
     };
 
@@ -161,7 +163,7 @@ class UploadScreen extends React.Component<Props, State> {
                   onPress={() => {this.handleUpload(
                       this.state.name,
                       this.state.price,
-                      this.state.img,
+                      imageUrl,
                       this.state.description
                   )}}
               />
