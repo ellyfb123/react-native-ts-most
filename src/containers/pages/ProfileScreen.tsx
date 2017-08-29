@@ -9,7 +9,7 @@ import { userLogout } from '../../modules/user/actions'
 import * as D from '../../definitions'
 import BoughtScreen from './BoughtScreen'
 import OwnedScreen from './OwnedScreen'
-import {showModal} from "../../modules/modal/actions";
+import { NavigationActions } from 'react-navigation'
 
 
 export type ProfileProps<S> = DispatchProp<S> & {
@@ -61,12 +61,17 @@ class ProfileScreen extends React.Component<ProfileProps<object>, object> {
     title: '个人信息',
   };
 
+  componentWillMount() {
+    if(!this.props.user.name) {
+      this.props.dispatch(NavigationActions.navigate({routeName: 'signin'}));
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation
     return (
       <View style={styles.container}>
         <View style={styles.profile}>
-          {this.props.user.name? undefined : this.props.dispatch(showModal('signin')) }
           <Image
             style={styles.image}
             source={require('../../assets/avator.png')}

@@ -2,10 +2,10 @@ import * as React from 'react'
 import * as Redux from 'redux'
 import { StyleSheet, TextInput, View, Image, ScrollView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { Button } from 'react-native-elements';
-import { createProduct, uploadProductImage } from "../../modules/product/actions";
-import { showModal } from "../../modules/modal/actions";
-import { ImagePicker } from 'expo';
+import { Button } from 'react-native-elements'
+import { createProduct, uploadProductImage } from "../../modules/product/actions"
+import { ImagePicker } from 'expo'
+import { NavigationActions } from 'react-navigation'
 
 const styles = StyleSheet.create({
     container: {
@@ -81,6 +81,12 @@ class UploadScreen extends React.Component<Props, State> {
       }
   }
 
+    componentWillMount() {
+        if(!this.props.user.name) {
+            this.props.dispatch(NavigationActions.navigate({routeName: 'signin'}));
+        }
+    }
+
   handleNameChange = (name) => {
     this.setState({name});
   };
@@ -93,7 +99,7 @@ class UploadScreen extends React.Component<Props, State> {
       this.setState({description})
   };
 
-  handleUpload = (name, price, imageUrl, description) => {
+  handleUpload = (imageUrl) => {
       const { dispatch } = this.props;
       dispatch(createProduct(
           {
@@ -128,7 +134,6 @@ class UploadScreen extends React.Component<Props, State> {
     return (
       <ScrollView contentContainerStyle={styles.container}>
           <View style={styles.main}>
-              {this.props.user.name? undefined : this.props.dispatch(showModal('signin')) }
               <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <Button
                       style={styles.uploadImgBtn}
@@ -160,12 +165,7 @@ class UploadScreen extends React.Component<Props, State> {
                   buttonStyle={styles.button}
                   color="#000"
                   title="开始出售"
-                  onPress={() => {this.handleUpload(
-                      this.state.name,
-                      this.state.price,
-                      imageUrl,
-                      this.state.description
-                  )}}
+                  onPress={() => {this.handleUpload(imageUrl)}}
               />
           </View>
       </ScrollView>
